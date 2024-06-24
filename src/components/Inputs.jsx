@@ -1,6 +1,23 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { BiSearch, BiCurrentLocation } from 'react-icons/bi';
-const Inputs = () => {
+const Inputs = ({ setQuery, setUnits }) => {
+  
+  const [city, setCity] = useState('');
+  const handleSubmit = (e) => {
+    if (city !== "")
+      e.preventDefault();
+    setQuery({ q: city });
+    setCity('');
+  };
+
+  const handleLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        setQuery({ lat:latitude, lon:longitude});
+      });
+    };
+  };
   return (
       <div className='
         flex
@@ -14,26 +31,36 @@ const Inputs = () => {
             items-center
             justify-center
             space-x-4'>
-              <input type='text'
-                  placeholder='Search by city...'
-                  className='
-                  text-gray-500
-                    text-xl
-                    font-light
-                    p-2
-                    w-full
-                    shadow-xl
-                    capitalize
-                    focus:outline-none
-                    placeholder:lowercase' />
-              <BiSearch size={30} className='
-                cursor-pointer
-                transition ease-out
-                hover:scale-125' />
-              <BiCurrentLocation size={30} className='
+            <input
+              value={city}
+              onChange={(e)=> setCity(e.currentTarget.value) }
+              type='text'
+              placeholder='Search by city...'
+              className='
+             text-gray-500
+              text-xl
+              font-light
+              p-2
+              w-full
+              shadow-xl
+              capitalize
+              focus:outline-none
+              placeholder:lowercase
+              rounded-2xl
+              ' />
+            <BiSearch
+              onClick={handleSubmit}
+              size={30} className='
+              cursor-pointer
+              transition ease-out
+              hover:scale-125' />
+            <BiCurrentLocation
+              size={30}
+              onClick={handleLocation}
+              className='
               cursor-pointer 
-                transition ease-out
-                hover:scale-125' />
+              transition ease-out
+              hover:scale-125' />
           </div>
 
           <div className='
@@ -43,9 +70,9 @@ const Inputs = () => {
             items-center
             justify-center
           '>
-              <button className='text-2xl font-medium transition ease-out hover:scale-125'> °C</button>
+              <button className='text-2xl font-medium transition ease-out hover:scale-125' onClick={()=>setUnits("metric")}> °C</button>
               <p className='text-2xl font-medium mx-1'>|</p>
-              <button className='text-2xl font-medium transition ease-out hover:scale-125 '> °F</button>
+              <button className='text-2xl font-medium transition ease-out hover:scale-125 '  onClick={()=>setUnits("imperial")}> °F</button>
           </div>
     </div>
   )
