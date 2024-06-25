@@ -24,7 +24,8 @@ const Inputs = ({ setQuery, setUnits }) => {
         flex-row
         justify-center
         my-6'>
-          <div className='
+        <div id='input-container'
+           className='
             flex 
             flex-row
             w-3/4
@@ -32,6 +33,7 @@ const Inputs = ({ setQuery, setUnits }) => {
             justify-center
             space-x-4'>
             <input
+              
               value={city}
               onChange={(e)=> setCity(e.currentTarget.value) }
               type='text'
@@ -48,19 +50,26 @@ const Inputs = ({ setQuery, setUnits }) => {
               placeholder:lowercase
               rounded-2xl
               ' />
-            <BiSearch
+                <BiSearch
               onClick={handleSubmit}
               size={30} className='
+              icon
+              search-icon
               cursor-pointer
               transition ease-out
-              hover:scale-125' />
+              hover:scale-125
+              '      
+            />
             <BiCurrentLocation
               size={30}
               onClick={handleLocation}
               className='
+              icon location-icon
               cursor-pointer 
               transition ease-out
-              hover:scale-125' />
+              hover:scale-125
+              ' />
+
           </div>
 
           <div className='

@@ -36,9 +36,14 @@ const App = () => {
     if (weather.temp <= threshold) return 'from-cyan-600 to-blue-700' 
     return 'from-yellow-600 to-orange-700'
   }
+  
+
 
   return (
-    <div className={`
+    <div
+      
+  className = {`
+      main-container
       mx-auto
       max-w-screen-lg
       mt-4 py-5 px-32
